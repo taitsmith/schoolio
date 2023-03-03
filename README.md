@@ -3,7 +3,7 @@ see its SAT test data if available. it's very plain but my goal was to choose fu
 over form on a short timeframe. given more time i would have made some different choices:
 - add some more unit tests.
 - display more data / give the user more options. allow users to send an email or call the selected school
-- make it look better. apply a material theme, pick some good colors etc
+- make it look better. apply a material theme, pick some good colors etc (see [busboy](https://github.com/taitsmith/busboy) for example)
 - add some filtering options: allow users to pick schools based on location, average sat scores etc
 
 design choices: 
