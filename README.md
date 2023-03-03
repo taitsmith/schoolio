@@ -1,7 +1,7 @@
 schoolio shows you a huge list of public schools in nyc, and lets you pick one from the list to
 see its SAT test data if available. it's very plain but my goal was to choose function
 over form on a short timeframe. given more time i would have made some different choices:
-- add some unit tests. testing to make sure the livedata is being updated with api responses, etc
+- add some more unit tests.
 - display more data / give the user more options. allow users to send an email or call the selected school
 - make it look better. apply a material theme, pick some good colors etc
 - add some filtering options: allow users to pick schools based on location, average sat scores etc
@@ -19,3 +19,5 @@ design choices:
     need to know about the network calls, etc. 
 - library choices: these are pretty standard- hilt for dependency injection to avoid doing it manually,
     retrofit for making the network calls and gson for parsing the responses to objects.
+- viewbinding / databinding: good for simple things like setting the school details and other simple
+    simple strings, but not for string manipulation like setting the sat scores which require String.format()
