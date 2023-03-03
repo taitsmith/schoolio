@@ -21,3 +21,8 @@ design choices:
     retrofit for making the network calls and gson for parsing the responses to objects.
 - viewbinding / databinding: good for simple things like setting the school details and other simple
     simple strings, but not for string manipulation like setting the sat scores which require String.format()
+- forcing portrait mode: this used to be a huge no-no but it seems like almost every app these days
+    locks you into portrait mode.
+- the name: read the guidelines several times, and still didn't name it in the proper format. when
+    it finally occurred to me, android studio put up a huge fuss about renaming. so i'll admit i
+    messed up on that one.
