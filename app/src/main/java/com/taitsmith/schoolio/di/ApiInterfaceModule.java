@@ -28,7 +28,7 @@ public class ApiInterfaceModule {
 
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(httpLoggingInterceptor)
-                .callTimeout(10, TimeUnit.SECONDS)
+                .callTimeout(10, TimeUnit.SECONDS) //10 seconds is pretty generous
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()

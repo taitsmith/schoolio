@@ -40,6 +40,9 @@ public class MainFragment extends Fragment implements SchoolAdapter.OnItemClickL
         binding = FragmentMainBinding.inflate(inflater, container, false);
         schoolListView = binding.schoolListView;
 
+        //show the progress bar while we're loading
+        binding.mainProgressBar.setVisibility(View.VISIBLE);
+
         setObservers();
         return binding.getRoot();
     }
@@ -60,7 +63,10 @@ public class MainFragment extends Fragment implements SchoolAdapter.OnItemClickL
         //our fragment doesn't need to know about the goings-on behind the scenes so
         //we'll just wait for some data to show up and then display it
         viewModel.getSchools().observe(getViewLifecycleOwner(), schoolResponseModels
-                -> schoolAdapter.submitList(schoolResponseModels));
+                -> {
+            schoolAdapter.submitList(schoolResponseModels);
+            binding.mainProgressBar.setVisibility(View.INVISIBLE);
+        });
     }
 
     @Override

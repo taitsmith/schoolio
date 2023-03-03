@@ -38,11 +38,12 @@ class MainViewModel @Inject constructor(private val apiRepository: ApiRepository
             kotlin.runCatching {
                 _schools.postValue(apiRepository.fetchSchools())
             }.onFailure {
-                _errorMessage.value = when (it) {
+                val s = when (it) {
                     //if you've got a slow network connection, we don't want to wait forever
                     is InterruptedIOException -> "TIMEOUT"
                     else -> "UNKNOWN"
                 }
+                _errorMessage.postValue(s)
                 Log.d("CALL FAILURE: ", it.toString())
             }
         }
