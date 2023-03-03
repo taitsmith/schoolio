@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="school"
+            type="com.taitsmith.schoolio.data.SchoolResponseModel" />
+        <variable
+            name="satScore"
+            type="com.taitsmith.schoolio.data.SatResponseModel" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp">
+
+    <TextView
+        android:id="@+id/detailsSchoolName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@{school.schoolName}"
+        app:layout_constraintBottom_toTopOf="@id/detailsBorough"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/detailsBorough"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@{school.borough}"
+        app:layout_constraintBottom_toTopOf="@id/detailsHorizGuideline10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailsSchoolName" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/detailsVertGuideline50"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.50121653" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/detailsHorizGuideline10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.10" />
+
+    <TextView
+        android:id="@+id/detailsOverview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@{school.overviewParagraph}"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/detailsHorizGuideline10" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <TextView
+        android:id="@+id/detailsNumberOfTakers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="number of takers"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+
+    <TextView
+        android:id="@+id/detailsReadingAvg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="reading average"
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@+id/detailsNumberOfTakers"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/detailsWritingAvg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="writing average"
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@+id/detailsReadingAvg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/detailsMathAvg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="math average"
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@+id/detailsWritingAvg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
