@@ -1,3 +1,6 @@
+this was one of those take home exercises for a job interview and in typical form they never responded or offered any feedback. check the dev branch for the updated version.
+
+
 schoolio shows you a huge list of public schools in nyc, and lets you pick one from the list to
 see its SAT test data if available. it's very plain but my goal was to choose function
 over form on a short timeframe. given more time i would have made some different choices:
