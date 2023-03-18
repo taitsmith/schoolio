@@ -1,4 +1,4 @@
-this was one of those take home exercises for a job interview and in typical form they never responded or offered any feedback. check the dev branch for the updated version.
+this was one of those take home exercises for a job interview and in typical form they never responded or offered any feedback, so now it's an example project.
 
 
 schoolio shows you a huge list of public schools in nyc, and lets you pick one from the list to
