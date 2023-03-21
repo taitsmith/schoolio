@@ -1,1 +1,3 @@
-this was one of those take home exercises for a job interview and in typical form they never responded or offered any feedback, so now it's an example project.
+this has been updated from its original form as a take home
+project for a job interview. check out the history on the 
+readme for its original info
