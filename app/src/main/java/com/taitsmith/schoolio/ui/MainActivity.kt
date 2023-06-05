@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     private fun setObservers() {
         viewModel.schools.observe(this) {
             setContent { 
-                SchoolDataList(schools = it)
+                MainScreen(it)
             }
         }
     }
