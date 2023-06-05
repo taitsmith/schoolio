@@ -199,7 +199,7 @@ fun SchoolCard(school: SchoolResponseModel) {
                                 colorFilter = ColorFilter.tint(md_theme_light_primary)
                             )
                             Text(
-                                text = school.phoneNumber!!,
+                                text = school.phoneNumber ?: "No phone number available",
                                 style = MaterialTheme.typography.bodySmall,
                                 color = md_theme_light_primary,
                                 modifier = Modifier
@@ -225,7 +225,7 @@ fun SchoolCard(school: SchoolResponseModel) {
                                 colorFilter = ColorFilter.tint(md_theme_light_primary)
                             )
                             Text(
-                                text = school.schoolEmail!!,
+                                text = school.schoolEmail ?: "No email available",
                                 style = MaterialTheme.typography.bodySmall,
                                 color = md_theme_light_primary,
                                 modifier = Modifier
