@@ -1,5 +1,6 @@
 package com.taitsmith.schoolio.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.animation.AnimatedVisibility
@@ -17,15 +18,25 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
@@ -42,6 +53,8 @@ import com.taitsmith.schoolio.data.SchoolResponseModel
 import com.taitsmith.schoolio.ui.theme.md_theme_light_primary
 import com.taitsmith.schoolio.ui.theme.md_theme_light_primaryContainer
 import com.taitsmith.schoolio.viewmodels.MainViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
 fun ShowLoading(){
@@ -65,9 +78,46 @@ fun ShowLoading(){
     }
 }
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "CoroutineCreationDuringComposition")
+@Composable
+fun MainScreen(schools: List<SchoolResponseModel>) {
+    val scope = rememberCoroutineScope()
+    val viewModel: MainViewModel = viewModel()
+    val snackbarHostState = remember { SnackbarHostState() }
+    val errorMessage by viewModel.errorMessage.observeAsState(null)
+    var snackbarMessage = ""
+
+    Scaffold(
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState)
+        },
+    ) {
+        SchoolDataList(schools)
+
+        if (!errorMessage.isNullOrEmpty()) {
+            when (errorMessage) {
+                "OOB" -> snackbarMessage = "no sat data for this school"
+                "TIMEOUT" -> snackbarMessage = "network error"
+                "UNKNOWN" -> snackbarMessage = "something went wrong"
+            }
+            scope.launch {
+                val result = snackbarHostState.showSnackbar(
+                    message = snackbarMessage,
+                    actionLabel = "Dismiss",
+                    duration = SnackbarDuration.Long
+                )
+
+                when (result) {
+                    SnackbarResult.ActionPerformed -> viewModel.resetErrorMessage()
+                    SnackbarResult.Dismissed -> viewModel.resetErrorMessage()
+                }
+            }
+        }
+    }
+}
+
 @Composable
 fun SchoolDataList(schools: List<SchoolResponseModel>) {
-
     Surface(
         color = md_theme_light_primary
     ) {
@@ -107,7 +157,7 @@ fun SchoolCard(school: SchoolResponseModel) {
                 .fillMaxSize()
                 .clickable {
                     expanded = !expanded
-                    viewModel.getSatScores(school)
+                    if (expanded) viewModel.getSatScores(school)
                 }
         ) {
             Text(
@@ -205,7 +255,7 @@ fun SchoolCard(school: SchoolResponseModel) {
 
 @Composable
 fun SatData(satData: SatResponseModel) {
-    Column() {
+    Column {
         Row(
             modifier = Modifier
                 .padding(all = 4.dp)
@@ -218,32 +268,48 @@ fun SatData(satData: SatResponseModel) {
                     .padding(all = 4.dp),
                 horizontalAlignment = CenterHorizontally
             ) {
-                Text(text = "SAT Writing:")
-                Text(text = satData.satWritingAvgScore.toString() ?: "Unavailable")
+                Text(text = "SAT Writing:",
+                    color = md_theme_light_primary,
+                    style = MaterialTheme.typography.bodyMedium)
+                Text(text = satData.satWritingAvgScore.toString(),
+                    color = md_theme_light_primary,
+                    style = MaterialTheme.typography.bodySmall)
             }
             Column(
                 modifier = Modifier
                     .padding(all = 4.dp),
                 horizontalAlignment = CenterHorizontally
             ) {
-                Text(text = "SAT Reading:")
-                Text(text = satData.satCriticalReadingAvgScore.toString() ?: "Unavailable")
+                Text(text = "SAT Reading:",
+                    color = md_theme_light_primary,
+                    style = MaterialTheme.typography.bodyMedium)
+                Text(text = satData.satCriticalReadingAvgScore.toString(),
+                    color = md_theme_light_primary,
+                    style = MaterialTheme.typography.bodySmall)
             }
             Column(
                 modifier = Modifier
                     .padding(all = 4.dp),
                 horizontalAlignment = CenterHorizontally
             ) {
-                Text(text = "SAT Math:")
-                Text(text = satData.satMathAvgScore.toString() ?: "Unavailable")
+                Text(text = "SAT Math:",
+                    color = md_theme_light_primary,
+                    style = MaterialTheme.typography.bodyMedium)
+                Text(text = satData.satMathAvgScore.toString(),
+                    color = md_theme_light_primary,
+                    style = MaterialTheme.typography.bodySmall)
             }
             Column(
                 modifier = Modifier
                     .padding(all = 4.dp),
                 horizontalAlignment = CenterHorizontally
             ) {
-                Text(text = "SAT takers:")
-                Text(text = satData.numOfSatTestTakers.toString() ?: "Unavailable")
+                Text(text = "SAT takers:",
+                    color = md_theme_light_primary,
+                    style = MaterialTheme.typography.bodyMedium)
+                Text(text = satData.numOfSatTestTakers.toString(),
+                    color = md_theme_light_primary,
+                    style = MaterialTheme.typography.bodySmall)
             }
         }
     }

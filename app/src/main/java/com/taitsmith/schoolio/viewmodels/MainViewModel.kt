@@ -66,4 +66,8 @@ class MainViewModel @Inject constructor(private val apiRepository: ApiRepository
             }
         }
     }
+
+    fun resetErrorMessage() {
+        _errorMessage.value = ""
+    }
 }
