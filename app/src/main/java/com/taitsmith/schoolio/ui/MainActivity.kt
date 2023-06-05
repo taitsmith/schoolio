@@ -152,6 +152,7 @@ fun SchoolCard(school: SchoolResponseModel) {
             .padding(top = 4.dp, bottom = 4.dp)
     ) {
         var expanded by remember { mutableStateOf(false) }
+        val context = LocalContext.current
 
         Column(
             modifier = Modifier
@@ -196,7 +197,11 @@ fun SchoolCard(school: SchoolResponseModel) {
                                 painter = painterResource(R.drawable.baseline_local_phone_24),
                                 contentDescription = "Phone image",
                                 modifier = Modifier
-                                    .padding(4.dp),
+                                    .padding(4.dp)
+                                    .clickable {
+                                        context.startActivity(Intent(Intent.ACTION_DIAL,
+                                            Uri.parse("tel:${school.phoneNumber}")))
+                                    },
                                 colorFilter = ColorFilter.tint(md_theme_light_primary)
                             )
                             Text(
