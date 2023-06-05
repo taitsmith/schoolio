@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.runtime.Composable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProviders
@@ -60,10 +61,10 @@ class MainFragment : Fragment() {
     private fun setObservers() {
         //our fragment doesn't need to know about the goings-on behind the scenes so
         //we'll just wait for some data to show up and then display it
-        viewModel.schools.observe(viewLifecycleOwner) { schoolResponseModels: List<SchoolResponseModel?> ->
-            schoolAdapter.submitList(schoolResponseModels)
-            binding.mainProgressBar.visibility = View.INVISIBLE
-        }
+//        viewModel.schools.observe(viewLifecycleOwner) { schoolResponseModels: List<SchoolResponseModel?> ->
+//            schoolAdapter.submitList(schoolResponseModels)
+//            binding.mainProgressBar.visibility = View.INVISIBLE
+//        }
     }
 
     override fun onDestroyView() {
@@ -76,4 +77,9 @@ class MainFragment : Fragment() {
         schoolListView!!.adapter = null
         viewModel.schools.removeObservers(viewLifecycleOwner)
     }
+}
+
+@Composable
+fun SchoolList(schools: List<SchoolResponseModel>) {
+
 }
